@@ -1,7 +1,12 @@
 package be.vdab.cinefest.repositories;
 
+import be.vdab.cinefest.domain.Film;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public class FilmRepository {
@@ -10,11 +15,30 @@ public class FilmRepository {
     public FilmRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public long findAantalVrijePlaatsen(){
+    public int findAantalVrijePlaatsen(){
         var sql = """
                 select sum(vrijePlaatsen) as aantal
                 from films
                 """;
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+    private final RowMapper<Film> FilmMapper = (result, rowNum) ->
+            new Film(result.getLong("id"),
+                    result.getString("titel"),
+                    result.getInt("jaar"),
+                    result.getInt("vrijePlaatsen"),
+                    result.getBigDecimal("aankoopprijs"));
+    public Optional<Film> findById(long id){
+        try {
+            var sql = """
+                select id, titel, jaar, vrijePlaatsen, aankoopprijs
+                from films
+                where id = ?
+                """;
+            return Optional.of(jdbcTemplate.queryForObject(sql, FilmMapper, id));
+        } catch (IncorrectResultSizeDataAccessException ex){
+            return Optional.empty();
+        }
+
     }
 }
