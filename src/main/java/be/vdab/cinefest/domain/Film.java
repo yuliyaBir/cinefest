@@ -3,11 +3,11 @@ package be.vdab.cinefest.domain;
 import java.math.BigDecimal;
 
 public class Film {
-    private long id;
-    private String titel;
-    private int jaar;
-    private int vrijePlaatsen;
-    private BigDecimal aankoopprijs;
+    private final long id;
+    private final String titel;
+    private final int jaar;
+    private final int vrijePlaatsen;
+    private final BigDecimal aankoopprijs;
 
     public Film(long id, String titel, int jaar, int vrijePlaatsen, BigDecimal aankoopPrijs) {
         this.id = id;
