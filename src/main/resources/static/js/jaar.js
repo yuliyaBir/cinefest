@@ -21,10 +21,7 @@ async function findByJaar(jaar){
         const films = await response.json();
         toon("filmsTable");
         const filmsBody = byId("filmsBody");
-        console.log(filmsBody)
-        // if (filmsBody.children > 0){
-            verwijderChildElementenVan("filmsBody");
-        // }
+        verwijderChildElementenVan(filmsBody);
         for (const film of films){
             const tr = filmsBody.insertRow();
             tr.insertCell().innerText = film.id;
