@@ -50,4 +50,13 @@ public class FilmRepository {
                     """;
             return jdbcTemplate.query(sql, FilmMapper);
     }
+    public List<Film> findByJaar(int jaar){
+        var sql = """
+                select id, titel, jaar, vrijePlaatsen, aankoopprijs
+                from films
+                where jaar = ?
+                order by titel                
+                """;
+        return jdbcTemplate.query(sql, FilmMapper, jaar);
+    }
 }

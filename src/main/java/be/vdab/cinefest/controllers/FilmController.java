@@ -36,4 +36,10 @@ public class FilmController {
         return filmService.findAll().stream()
                 .map(film -> new IdTitelJaarVrijePlaatsen(film));
     }
+    @GetMapping(value = "films", params = "jaarIs")
+    Stream<IdTitelJaarVrijePlaatsen> findByJaar(int jaarIs){
+        return filmService.findByJaar(jaarIs)
+                .stream()
+                .map(film -> new IdTitelJaarVrijePlaatsen(film));
+    }
 }
