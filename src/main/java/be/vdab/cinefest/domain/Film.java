@@ -1,12 +1,14 @@
 package be.vdab.cinefest.domain;
 
+import be.vdab.cinefest.exceptions.PlaatsenNietGenoegException;
+
 import java.math.BigDecimal;
 
 public class Film {
     private final long id;
     private final String titel;
     private final int jaar;
-    private final int vrijePlaatsen;
+    private int vrijePlaatsen;
     private final BigDecimal aankoopprijs;
 
     public Film(long id, String titel, int jaar, int vrijePlaatsen, BigDecimal aankoopPrijs) {
@@ -39,5 +41,14 @@ public class Film {
 
     public BigDecimal getAankoopprijs() {
         return aankoopprijs;
+    }
+    public void reserveer(int plaatsen){
+        if (plaatsen <= 0){
+            throw new IllegalArgumentException("Het aantal moet meer dan 0 zijn");
+        }
+        if(vrijePlaatsen < plaatsen){
+            throw new PlaatsenNietGenoegException();
+        }
+        vrijePlaatsen -= plaatsen;
     }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Film toevoegen</title>
+    <script src="js/toevoegen.js" type="module" defer></script>
+    <link rel="stylesheet" href="css/cinefest.css">
+    <link rel="icon" href="images/cinefest.ico" type="image/x-icon">
+</head>
+<body>
+  <div><a href="index.html">Menu</a></div>
+<h1>Film toevoegen</h1>
+  <label>Titel:
+    <span id="titelFout" class="fout" hidden>Verplicht</span>
+    <input id="titel" required autofocus>
+  </label>
+  <label>Jaar:
+  <span id="jaarFout" class="fout" hidden></span>
+    <input id="jaar" type="number" min="0" required>
+  </label>
+<button id="toevoegen">Toevoegen</button>
+<div id="storing" class="fout" hidden>Storing, contacteer helpdesk</div>
+</body>
+</html>
