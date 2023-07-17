@@ -9,7 +9,7 @@ public class Reservatie {
     private final int plaatsen;
     private final LocalDateTime besteld;
 
-    public Reservatie(long id, int filmId, String emailAdres, int plaatsen, LocalDateTime besteld) {
+    public Reservatie(long id, long filmId, String emailAdres, int plaatsen, LocalDateTime besteld) {
         this.id = id;
         this.filmId = filmId;
         this.emailAdres = emailAdres;

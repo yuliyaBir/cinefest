@@ -59,7 +59,7 @@ nav li a:hover {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #894caf;
     border: none;
     color: white;
     cursor: pointer;
@@ -69,15 +69,15 @@ button {
 }
 
 button:hover {
-    background-color: #3e8e41;
+    background-color: #d265f5;
 }
 
 button:active, button:hover {
-    background-color: #3ecc41;
+    background-color: #c69de5;
 }
 
 button:disabled {
-    background-color: gray;
+    background-color: #6700a1;
     cursor: not-allowed;
 }
 

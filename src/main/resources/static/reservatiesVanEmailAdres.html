@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservaties van een emailadres</title>
+    <script src="js/reservatiesVanEmailAdres.js" type="module" defer></script>
+    <link rel="stylesheet" href="css/cinefest.css">
+    <link rel="icon" href="images/cinefest.ico" type="image/x-icon">
+</head>
+<body>
+    <div><a href="index.html">Menu</a></div>
+<h1>Reservaties van een emailadres</h1>
+    <label>Email:
+    <span id="emailFout" class="fout" hidden>Email is verplicht en moet valid zijn</span>
+        <input id="email" type="email" required autofocus placeholder="john.damp@example.org">
+    </label>
+<button id="zoek">Zoeken</button>
+    <table id="reservatiesTabel" hidden>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>titel</th>
+            <th>plaatsen</th>
+            <th>besteld op</th>
+        </tr>
+        </thead>
+        <tbody id="reservatiesBody"></tbody>
+    </table>
+<div id="storing" class="fout" hidden>Storind, contacteer helpdesk</div>
+<div id="notFound" class="fout" hidden></div>
+</body>
+</html>

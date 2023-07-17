@@ -70,7 +70,6 @@ async function wijzigTitel(nieuweTitel){
         });
     if (response.ok){
         setText("titel", nieuweTitel);
-
     }else{
         toon("storing");
     }
@@ -87,44 +86,37 @@ byId("reserveer").onclick = async function (){
         aantalInput.focus();
     }
     const reservatiePoging = {
-        emailAdres: emailInput.value,
-        plaatsen: aantalInput.value
+        email: emailInput.value,
+        aantal: aantalInput.value
     }
+    console.log(emailInput.value);
     reserveer(reservatiePoging);
 }
 
-byId("reserveer").onclick = async function () {
-    verberg("emailAdresFout");
-    verberg("plaatsenFout");
-    const emailAdresInput = byId("emailAdres");
-    if (! emailAdresInput.checkValidity()) {
-        toon("emailAdresFout");
-        emailAdresInput.focus();
-        return;
+async function reserveer(reservatiePoging){
+    console.log(reservatiePoging);
+    const response = await fetch(`films/${byId("zoekId").value}/reservatie`,
+        {
+            method: "POST",
+            headers: {'Content-Type': "application/json"},
+            body: JSON.stringify(reservatiePoging)
+        });
+    console.log(JSON.stringify(reservatiePoging));
+    if (response.ok){
+        verberg("plaatsenNietGenoeg");
+        window.location = "alleFilms.html";
+    }else{
+        switch (response.status){
+            case 404:
+                toon("nietGevonden");
+                break;
+            case 409:
+                const responseBody = await response.json();
+                setText("plaatsenNietGenoeg", responseBody.message);
+                toon("plaatsenNietGenoeg");
+                break;
+            default:
+                toon("storing");
+        }
     }
-    const plaatsenInput = byId("plaatsen");
-    if (! plaatsenInput.checkValidity()) {
-        toon("plaatsenFout");
-        plaatsenInput.focus();
-        return;
-    }
-    const nieuweReservatie = {
-        emailAdres: emailAdresInput.value,
-        plaatsen: plaatsenInput.value
-    };
-    reserveer(nieuweReservatie);
-};
-// async function reserveer(reservatiePoging){
-//     const response = await fetch(`films/${byId("zoekId").value}/reservatie`,
-//         {
-//             method: "POST",
-//             headers: {'Content-Type': "application/json"},
-//             body: JSON.stringify(reservatiePoging)
-//         });
-//     if (response.ok){
-//         verberg("plaatsenNietGenoeg");
-//         window.location = "alleFilms.html";
-//     }else{
-//         toon("plaatsenNietGenoeg");
-//     }
-// }
+}
